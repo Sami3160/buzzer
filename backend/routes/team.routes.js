@@ -3,6 +3,7 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 const jwt = require("jsonwebtoken");
+const { readTeamsFromFile } = require("../utils/json_operations");
 const { isAdmin, protect } = require("../middleware/auth");
 const dbPath = path.join(__dirname, "../data/teams.json");
 // router.post('/register', isAdmin, async (req, res) => {
@@ -47,16 +48,16 @@ router.post("/isteam", protect, (req, res) => {
   res.status(200).json({ message: "Its a team!" });
 });
 
-const readTeamsFromFile = () => {
-  if (!fs.existsSync(dbPath)) {
-    return [];
-  }
-  const data = fs.readFileSync(dbPath, "utf-8");
-  return JSON.parse(data)["teams"];
-};
+// const readTeamsFromFile = () => {
+//   if (!fs.existsSync(dbPath)) {
+//     return [];
+//   }
+//   const data = fs.readFileSync(dbPath, "utf-8");
+//   return JSON.parse(data)["teams"];
+// };
 
-const writeTeamsToFile = (teams) => {
-  fs.writeFileSync(dbPath, JSON.stringify(teams, null, 2), "utf-8");
-};
+// const writeTeamsToFile = (teams) => {
+//   fs.writeFileSync(dbPath, JSON.stringify(teams, null, 2), "utf-8");
+// };
 
 module.exports = router;
